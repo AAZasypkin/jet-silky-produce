@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Panel</title>
+        <script src = "/socket.io/socket.io.js"></script>
+        <script>
+            async function nextPhase() {
+                await fetch("http://localhost:5000/nextPhase/" + window.location.href.split("/")[4]);
+            };
+            async function newPlayer() {
+                this.name = prompt("Введите имя игрока");
+                this.role = prompt("Введите роль игрока");
+                await fetch("http://localhost:5000/newPlayer/" + window.location.href.split("/")[4]+`/${this.name}/${this.role}`);
+            };
+            async function groupRoles() {
+                await fetch("http://localhost:5000/groupRoles/" + window.location.href.split("/")[4] + `/${prompt("Введите через пробел количество людей на роли: мирный, вампир, шериф.")}`);
+            };
+            var socket = io();
+            socket.on("gotInfo", data => {
+                document.getElementsByTagName("textarea")[0].value = data.description + "\n\n"+ document.getElementsByTagName("textarea")[0].value;
+            });
+        </script>
+    </head>
+    <body>
+        <p>Игра запущена</p>
+        <button onclick="nextPhase()">Следующая стадия</button>
+        <button onclick="newPlayer()">Создать игрока</button>
+        <button onclick="groupRoles()">Распределить роли</button>
+        <br><br>
+        <textarea readonly style="margin: 0px; width: 65%; height: 385px; resize: none;"></textarea>
+    </body>
+</html>

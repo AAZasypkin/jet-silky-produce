@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Мафия 1505</title>
+    <script src = "/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        var buffer = "";
+        const token = window.location.href.split("/")[4];
+        socket.on("phaseChanged", data => {
+            window.location.reload();
+        });
+        async function renderPlayers() {
+            try {
+                document.getElementsByTagName("div")[0].remove()
+            } catch (error) {};
+            this.playersList = await (await fetch(window.location.href.split("game").join("getPlayers"))).json();
+            switch(document.getElementById("role").innerHTML.split("Ваша роль: ").join("")) {
+                case "Мирный":
+                    document.body.append(document.createElement("div"));
+                    buffer = document.getElementsByTagName("div")[0];
+                        buffer.append(document.createElement("br"));
+                        buffer.append(document.createElement("div"));
+                            buffer.children[1].append(document.createElement("p"));
+                                buffer.children[1].children[0].innerHTML = "<b>Игроки:</b>";
+                            for (let i in this.playersList) {
+                                buffer.children[1].append(document.createElement("p"));
+                                buffer.children[1].children[parseInt(i)+1].innerHTML = this.playersList[i];
+                                buffer.children[1].children[parseInt(i)+1].innerHTML += " ";
+                                buffer.children[1].children[parseInt(i)+1].append(document.createElement("button"));
+                                buffer.children[1].children[parseInt(i)+1].children[0].innerHTML = "Защитить";
+                                buffer.children[1].children[parseInt(i)+1].children[0].setAttribute("class", "actionButton");
+                                buffer.children[1].children[parseInt(i)+1].children[0].setAttribute("id", parseInt(i)+1);
+                                buffer.children[1].children[parseInt(i)+1].append(document.createElement("button"));
+                                buffer.children[1].children[parseInt(i)+1].children[1].innerHTML = "Атаковать";
+                                buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("class", "actionButton");
+                                buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("id", parseInt(i)+1);
+                                /*this.doAction = async function() {
+                                    this.functionBuffer = buffer.children[1].children[parseInt(i)+1].innerHTML.split(" ")[3].replace(")", "");
+                                    this.roleBuffer = await (await fetch(`http://localhost:5000/roleById/${this.functionBuffer}`)).text();
+                                    this.myRoleBuffer = document.getElementById("role").innerHTML.split(" ").slice(-1)[0];
+                                    this.myRoleBuffer = this.myRoleBuffer
+                                        .replace("Мирный", "default");
+                                    if (this.roleBuffer == this.myRoleBuffer) {
+                                        return `
+                                            fetch("http://localhost:5000/writeMsgToPlayer/${token}/Игрок_находится_в_Вашей_фракции").catch(console.log);
+                                            fetch("http://localhost:5000/editReady/${token}/false");
+                                            fetch("http://localhost:5000/addToDone/${window.location.href.split("/").slice(-1)[0]}/checked/${this.functionBuffer}").catch(console.log);
+                                            window.location.reload();
+                                        `;
+                                    }
+                                    else {
+                                        return `
+                                            fetch("http://localhost:5000/writeMsgToPlayer/${token}/Игрок_не_находится_в_Вашей_фракции").catch(console.log);
+                                            fetch("http://localhost:5000/editReady/${token}/false");
+                                            fetch("http://localhost:5000/addToDone/${window.location.href.split("/").slice(-1)[0]}/checked/${this.functionBuffer}").catch(console.log);
+                                            window.location.reload();
+                                        `;
+                                    };
+                                };*/
+                                this.doAction = async function(key) {
+                                    this.functionBuffer = buffer.children[1].children[parseInt(i)+1].innerHTML.split(" ")[3].replace(")", "");
+                                    switch (key) {
+                                        case 0:
+                                            return `
+                                                fetch("http://localhost:5000/writeMsgToPlayer/${token}/В_предыдущем_ходе_вы_защитили_игрока").catch(console.log);
+                                                fetch("http://localhost:5000/defendPlayer/${this.functionBuffer}").catch(console.log);
+                                                fetch("http://localhost:5000/editReady/${token}/false");
+                                                fetch("http://localhost:5000/addToDone/${window.location.href.split("/").slice(-1)[0]}/defended/${this.functionBuffer}").catch(console.log);
+                                                window.location.reload();
+                                            `;
+                                            break;
+                                        case 1:
+                                            return `
+                                                fetch("http://localhost:5000/writeMsgToPlayer/${token}/В_предыдущем_ходе_вы_атаковали_игрока").catch(console.log);
+                                                fetch("http://localhost:5000/attackPlayer/${this.functionBuffer}").catch(console.log);
+                                                fetch("http://localhost:5000/editReady/${token}/false");
+                                                fetch("http://localhost:5000/addToDone/${window.location.href.split("/").slice(-1)[0]}/attacked/${this.functionBuffer}").catch(console.log);
+                                                window.location.reload();
+                                            `;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                };
+                                buffer.children[1].children[parseInt(i)+1].children[0].setAttribute("onclick", await this.doAction(0));
+                                buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("onclick", await this.doAction(1));
+                            };
+                        buffer.append(document.createElement("button"));
+                            buffer.children[2].innerHTML = "Обновить список";
+                            buffer.children[2].setAttribute("onclick", "renderPlayers()");
+                    break;
+                //начал работу
+                case "Вампир":
+                document.body.append(document.createElement("div"));
+                    buffer = document.getElementsByTagName("div")[0];
+                        buffer.append(document.createElement("br"));
+                        buffer.append(document.createElement("div"));
+                            buffer.children[1].append(document.createElement("p"));
+                                buffer.children[1].children[0].innerHTML = "<b>Игроки:</b>";
+                            for (let i in this.playersList) {
+                                buffer.children[1].append(document.createElement("p"));
+                                buffer.children[1].children[parseInt(i)+1].innerHTML = this.playersList[i];
+                                buffer.children[1].children[parseInt(i)+1].innerHTML += " ";
+                                buffer.children[1].children[parseInt(i)+1].append(document.createElement("button"));
+                                buffer.children[1].children[parseInt(i)+1].children[0].innerHTML = "Защитить";
+                                buffer.children[1].children[parseInt(i)+1].children[0].setAttribute("class", "actionButton");
+                                buffer.children[1].children[parseInt(i)+1].children[0].setAttribute("id", parseInt(i)+1);
+                                buffer.children[1].children[parseInt(i)+1].append(document.createElement("button"));
+                                buffer.children[1].children[parseInt(i)+1].children[1].innerHTML = "Атаковать";
+                                buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("class", "actionButton");
+                                buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("id", parseInt(i)+1);
+                                this.doAction = async function(key) {
+                                    this.functionBuffer = buffer.children[1].children[parseInt(i)+1].innerHTML.split(" ")[3].replace(")", "");
+                                    switch (key) {
+                                        case 0:
+                                            return `
+                                                fetch("http://localhost:5000/writeMsgToPlayer/${token}/В_предыдущем_ходе_вы_защитили_игрока").catch(console.log);
+                                                fetch("http://localhost:5000/defendPlayer/${this.functionBuffer}").catch(console.log);
+                                                fetch("http://localhost:5000/editReady/${token}/false");
+                                                fetch("http://localhost:5000/addToDone/${window.location.href.split("/").slice(-1)[0]}/defended/${this.functionBuffer}").catch(console.log);
+                                                window.location.reload();
+                                            `;
+                                            break;
+                                        case 1:
+                                            return `
+                                                fetch("http://localhost:5000/writeMsgToPlayer/${token}/В_предыдущем_ходе_вы_атаковали_игрока").catch(console.log);
+                                                fetch("http://localhost:5000/attackPlayer/${this.functionBuffer}").catch(console.log);
+                                                fetch("http://localhost:5000/editReady/${token}/false");
+                                                fetch("http://localhost:5000/addToDone/${window.location.href.split("/").slice(-1)[0]}/attacked/${this.functionBuffer}").catch(console.log);
+                                                window.location.reload();
+                                            `;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                };
+                                buffer.children[1].children[parseInt(i)+1].children[0].setAttribute("onclick", await this.doAction(0));
+                                buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("onclick", await this.doAction(1));
+                            };
+                        buffer.append(document.createElement("button"));
+                            buffer.children[2].innerHTML = "Обновить список";
+                            buffer.children[2].setAttribute("onclick", "renderPlayers()");
+                    break;
+                case "Шериф":
+                document.body.append(document.createElement("div"));
+                    buffer = document.getElementsByTagName("div")[0];
+                        buffer.append(document.createElement("br"));
+                        buffer.append(document.createElement("div"));
+                            buffer.children[1].append(document.createElement("p"));
+                                buffer.children[1].children[0].innerHTML = "<b>Игроки:</b>";
+                            for (let i in this.playersList) {
+                                buffer.children[1].append(document.createElement("p"));
+                                buffer.children[1].children[parseInt(i)+1].innerHTML = this.playersList[i];
+                                buffer.children[1].children[parseInt(i)+1].innerHTML += " ";
+                                buffer.children[1].children[parseInt(i)+1].append(document.createElement("button"));
+                                buffer.children[1].children[parseInt(i)+1].children[0].innerHTML = "Защитить";
+                                buffer.children[1].children[parseInt(i)+1].children[0].setAttribute("class", "actionButton");
+                                buffer.children[1].children[parseInt(i)+1].children[0].setAttribute("id", parseInt(i)+1);
+                                buffer.children[1].children[parseInt(i)+1].append(document.createElement("button"));
+                                buffer.children[1].children[parseInt(i)+1].children[1].innerHTML = "Атаковать";
+                                buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("class", "actionButton");
+                                buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("id", parseInt(i)+1);
+                                this.doAction = async function(key) {
+                                    this.functionBuffer = buffer.children[1].children[parseInt(i)+1].innerHTML.split(" ")[3].replace(")", "");
+                                    switch (key) {
+                                        case 0:
+                                            return `
+                                                fetch("http://localhost:5000/writeMsgToPlayer/${token}/В_предыдущем_ходе_вы_защитили_игрока").catch(console.log);
+                                                fetch("http://localhost:5000/defendPlayer/${this.functionBuffer}").catch(console.log);
+                                                fetch("http://localhost:5000/editReady/${token}/false");
+                                                fetch("http://localhost:5000/addToDone/${window.location.href.split("/").slice(-1)[0]}/defended/${this.functionBuffer}").catch(console.log);
+                                                window.location.reload();
+                                            `;
+                                            break;
+                                        case 1:
+                                            return `
+                                                fetch("http://localhost:5000/writeMsgToPlayer/${token}/В_предыдущем_ходе_вы_атаковали_игрока").catch(console.log);
+                                                fetch("http://localhost:5000/attackPlayer/${this.functionBuffer}").catch(console.log);
+                                                fetch("http://localhost:5000/editReady/${token}/false");
+                                                fetch("http://localhost:5000/addToDone/${window.location.href.split("/").slice(-1)[0]}/attacked/${this.functionBuffer}").catch(console.log);
+                                                window.location.reload();
+                                            `;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                };
+                                buffer.children[1].children[parseInt(i)+1].children[0].setAttribute("onclick", await this.doAction(0));
+                                buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("onclick", await this.doAction(1));
+                            };
+                        buffer.append(document.createElement("button"));
+                            buffer.children[2].innerHTML = "Обновить список";
+                            buffer.children[2].setAttribute("onclick", "renderPlayers()");
+                    break;
+            };
+        }
+        window.onload = async function() {
+            this.buffer = document.createElement("p");
+            this.buffer.innerHTML = (await (await fetch(`http://localhost:5000/readMsgPlayer/${token}`)).text()).split("_").join(" ");
+            document.body.append(this.buffer);
+            if (eval (await (await fetch(`http://localhost:5000/checkDead/${token}`)).text())) {
+                this.buffer = document.createElement("p");
+                this.buffer.innerHTML = "<br>К сожалению, Вы были убиты. Игра для Вас завершена.";
+                document.body.append(this.buffer);
+                return;
+            };
+            if (document.getElementById("phase").innerHTML.split("Текущая фаза: ").join("") == await (await fetch(`http://localhost:5000/lastLoginPhase/${token}`)).text()) {
+                if (eval (await (await fetch(`http://localhost:5000/checkReady/${token}`)).text())) {
+                    if (document.getElementById("phase").innerHTML.split("Текущая фаза: ").join("") == "Финал") {
+                        this.result = await(await fetch("http://localhost:5000/getResult/")).text()
+                        this.buffer = document.createElement("p");
+                        this.buffer.innerHTML = `<br>${this.result}`;
+                        document.body.append(this.buffer);
+                    } else {
+                        renderPlayers();  
+                    };
+                } else {
+                    this.buffer = document.createElement("p");
+                    this.buffer.innerHTML = "<br>Ход завершен. Ожидайте.";
+                    document.body.append(this.buffer);
+                };
+            }
+            else {
+                //await fetch(`http://localhost:5000/writeMsgToPlayer/${token}/""`);
+                await fetch(`http://localhost:5000/writeLastLoginPhase/${token}/${document.getElementById("phase").innerHTML.split("Текущая фаза: ").join("")}`);
+                await fetch(`http://localhost:5000/editReady/${token}/true`);
+                await fetch(`http://localhost:5000/clearAttacks/${token}`);
+                window.location.reload();
+            };
+        };
+    </script>
+</head>
+<body>
+    <p id="phase"></p>
+    <p id="name"></p>
+    <p id="role"></p>
+</body>
+</html>

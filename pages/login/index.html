@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Мафия 1505</title>
+    <meta charset="UTF-8">
+    <script>
+        baseURL = "http://localhost:5000/";
+        window.onload = function() {
+            document.getElementsByTagName('input')[0].addEventListener('keydown', function(e){
+                if (e.key == "Enter") {
+                    login();
+                };
+            });
+        };
+        function login() {
+            window.location.href = baseURL + `game/${document.getElementsByTagName('input')[0].value}`;
+        };
+    </script>
+</head>
+<body>
+    <p>Вход в игру</p>
+    <p>
+        <input placeholder="SHA-256 Hash">
+        <button onclick="login()">Войти</button>
+        <p>(или войдите по QR коду из выданной карточки)</p>
+    </p>
+</body>
+</html>

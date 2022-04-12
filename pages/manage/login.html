@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script>
+        const baseURL = "http://localhost:5000/";
+    </script>
+</head>
+<body>
+    <input placeholder="SHA-256 Hash">
+    <button onclick="window.location.href = `${baseURL}manage/${document.getElementsByTagName('input')[0].value}`">Войти</button>
+</body>
+</html>
