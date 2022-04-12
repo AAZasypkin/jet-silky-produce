@@ -5,15 +5,15 @@
         <script src = "/socket.io/socket.io.js"></script>
         <script>
             async function nextPhase() {
-                await fetch("http://localhost:5000/nextPhase/" + window.location.href.split("/")[4]);
+                await fetch("https://jet-silky-produce.glitch.me/nextPhase/" + window.location.href.split("/")[4]);
             };
             async function newPlayer() {
                 this.name = prompt("Введите имя игрока");
                 this.role = prompt("Введите роль игрока");
-                await fetch("http://localhost:5000/newPlayer/" + window.location.href.split("/")[4]+`/${this.name}/${this.role}`);
+                await fetch("https://jet-silky-produce.glitch.me/newPlayer/" + window.location.href.split("/")[4]+`/${this.name}/${this.role}`);
             };
             async function groupRoles() {
-                await fetch("http://localhost:5000/groupRoles/" + window.location.href.split("/")[4] + `/${prompt("Введите через пробел количество людей на роли: мирный, вампир, шериф.")}`);
+                await fetch("https://jet-silky-produce.glitch.me/groupRoles/" + window.location.href.split("/")[4] + `/${prompt("Введите через пробел количество людей на роли: мирный, вампир, шериф.")}`);
             };
             var socket = io();
             socket.on("gotInfo", data => {

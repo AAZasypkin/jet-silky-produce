@@ -8,7 +8,7 @@ const path = require("path");
 const fs = require("fs");
 const Datastore = require('nedb');
 
-const baseURL = "http://localhost:5000/";
+const baseURL = "https://jet-silky-produce.glitch.me/";
 
 const sendInfo = require("./functions/sendInfo.js");
 
@@ -50,7 +50,7 @@ app.get("/manage/:token", (req, res) => {
 app.get("/game/:token", (req, res) => {
     players.find({token: req.params.token}, function (err, docs) {
         if (docs.length == 0) {
-            return res.send("<script>alert('Пользователь не найден'); window.location.href = 'http://localhost:5000'</script>");
+            return res.send("<script>alert('Пользователь не найден'); window.location.href = 'https://jet-silky-produce.glitch.me/'</script>");
         }
         else {
             game.find({}, function (err1, docs1) {
