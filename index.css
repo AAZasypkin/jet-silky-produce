@@ -4,10 +4,36 @@
   letter-spacing: 1px;
   transition: .2s ease-in-out;
   font-size: 16px;
-  color: #ffffff
-    marg
+  color: #ffffff;
+  margin-left: 20px;
+  margin-top: 5px;
 }
 
 body{
+  margin-top: 10px;
   background: #140000;
+}
+
+button{
+  margin-top: 5px;
+  color:#dedede;
+  padding: 5px;
+  background:#4f0000;
+  margin:5px;
+  border: 1px solid #d6d6d6;
+  outline: none;
+  border-radius: 5px;
+  
+}
+
+button:hover{
+  margin-top: 5px;
+  color:#dedede;
+  padding: 5px;
+  background:#140000;
+  margin:5px;
+  border: 1px solid #d6d6d6;
+  outline: none;
+  border-radius: 5px;
+  
 }
