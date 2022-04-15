@@ -293,6 +293,8 @@ app.get("/groupRoles/:token/:args", (req, res) => {
     });
 });
 
+app.get("/index.css")
+
 server.listen(5000, () => {
     console.log("Ready!");
 });
