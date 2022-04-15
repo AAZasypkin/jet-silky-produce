@@ -1,8 +1,8 @@
 *{
   margin: 0;
-  font-family: sans-serif;
+  font-family: monospace;
   letter-spacing: 1px;
-  transition: .2s ease-in-out;
+  transition: .3s ease-in-out;
   font-size: 16px;
   color: #ffffff;
   margin-top: 5px;
@@ -39,5 +39,5 @@ button{
 }
 
 b{
-  color: black;
+  text-decoration-line: underline;
 }
