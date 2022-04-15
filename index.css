@@ -37,3 +37,13 @@ button:hover{
   border-radius: 5px;
   
 }
+
+#phase{
+  width: 180px;
+  padding: 5px;
+  font-size: 20px;
+  margin-bottom: 30px;
+  border: 1px solid #d6d6d6;
+  text-align: center;
+}
+
