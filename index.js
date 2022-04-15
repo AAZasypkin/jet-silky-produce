@@ -293,7 +293,9 @@ app.get("/groupRoles/:token/:args", (req, res) => {
     });
 });
 
-app.get("/index.css")
+app.get("/index.css", (req, res) => {
+    res.sendFile(`${__dirname}/index.css`);
+});
 
 server.listen(5000, () => {
     console.log("Ready!");
