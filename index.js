@@ -299,7 +299,5 @@ app.get("/index.css", (req, res) => {
 
 server.listen(5000, () => {
     console.log("Ready!");
-    players.find({}, function (err, docs) {
-        console.log(docs)
-    })
+    console.log(fs.readFileSync(__dirname+"/database/players.ini").toString())
 });
