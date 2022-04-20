@@ -136,6 +136,7 @@ app.get("/nextPhase/:token", (req, res) => {
                 });
             }
         });
+        sendInfo("\n----------------------------------------\n", io)
     }, 3000)
 });
 
@@ -191,7 +192,7 @@ app.get("/defendPlayer/:id", (req, res) => {
         this.buffer++;
         this.buffer = this.buffer.toString();
         players.update({_id: req.params.id}, {$set: {defended: this.buffer}}, {});
-        sendInfo(`!${docs[0].name} был атакован!`, io)
+        sendInfo(`!${docs[0].name} был защищен!`, io)
     });
     res.send("ok");
 });
