@@ -1,4 +1,3 @@
-const sha256 = require("js-sha256").sha256;
 function random(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -14,7 +13,7 @@ function generateToken() {
 };
 
 const keys = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789+-=*/";
-const avaliableRoles = ["default", "vamp", "sher"];
+const avaliableRoles = ["", "default", "vamp", "sher"];
 /*
     default - мирный
     vamp - вампир
@@ -28,7 +27,7 @@ module.exports = class {
             this.error = true;
             return;
         };
-        this.token = sha256(generateToken());
+        this.token = generateToken();
         this.role = role;
         this.name = name;
         this.ready = true;
