@@ -12,7 +12,7 @@ function generateToken() {
     return this.buffer;
 };
 
-const keys = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789+-=*/";
+const keys = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789+-=";
 const avaliableRoles = ["", "default", "vamp", "sher"];
 /*
     default - мирный

@@ -191,6 +191,7 @@ app.get("/defendPlayer/:id", (req, res) => {
         this.buffer++;
         this.buffer = this.buffer.toString();
         players.update({_id: req.params.id}, {$set: {defended: this.buffer}}, {});
+        sendInfo(`!${docs[0].name} был атакован!`, io)
     });
     res.send("ok");
 });
