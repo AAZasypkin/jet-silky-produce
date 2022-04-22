@@ -203,7 +203,7 @@
             document.body.append(this.buffer);
             if (eval (await (await fetch(`https://jet-silky-produce.glitch.me/checkDead/${token}`)).text())) {
                 this.buffer = document.createElement("p");
-                this.buffer.innerHTML = "<br>К сожалению, Вы были убиты. Игра для Вас завершена.";
+                this.buffer.innerHTML = "<br>Вы были убиты. Игра для Вас завершена.";
                 document.body.append(this.buffer);
                 return;
             };
