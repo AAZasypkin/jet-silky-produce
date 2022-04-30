@@ -62,9 +62,7 @@
                                 };*/
                                 this.doAction = async function(key) {
                                     this.functionBuffer = buffer.children[1].children[parseInt(i)+1].innerHTML.split(" ")[3].replace(")", "");
-                                    console.log(this.functionBuffer)
                                     this.doneName = await (await fetch(`https://jet-silky-produce.glitch.me/nameById/${this.functionBuffer}`)).text();
-                                    console.log(this.functionBuffer);
                                     switch (key) {
                                         case 0:
                                             return `
