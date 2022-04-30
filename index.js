@@ -175,6 +175,12 @@ app.get("/roleById/:id", (req, res) => {
     });
 });
 
+app.get("/nameById/:id", (req, res) => {
+    players.find({_id: req.params.id}, function(err, docs) {
+        res.send(docs[0].name.toString())
+    });
+});
+
 app.get("/attackPlayer/:id", (req, res) => {
     players.find({_id: req.params.id}, function(err, docs) {
         this.buffer = parseInt(docs[0].attacked);
