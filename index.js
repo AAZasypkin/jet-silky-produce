@@ -89,6 +89,8 @@ function killDead() {
     players.find({}, function(err, docs) {
         for (let i in docs) {
             console.log(docs[i].msg.split("_").slice(-1)[0])
+            console.log("6z3srjXhyYF5bBvZ")
+            console.log(docs[i].msg.split("_").slice(-1)[0] == "6z3srjXhyYF5bBvZ")
             players.find({_id: docs[i].msg.split("_").slice(-1)[0]}, function(err1, docs1) {
                 this.bufferForUpdate = docs[i].msg.split("_");
                 this.bufferForUpdate[this.bufferForUpdate.length-1] = docs1[0].name
