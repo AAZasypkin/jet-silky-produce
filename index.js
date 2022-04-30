@@ -304,7 +304,10 @@ app.get("/groupRoles/:token/:args", (req, res) => {
 app.get("/checkAllDone", (req, res) => {
     players.find({}, function(err, docs) {
         for (let i in docs) {
-            this.doneDestination
+            players.find({_id: docs[i].msg.split("_").slice(-1)[0]}, function(err1, docs1) {
+                
+            });
+            this.doneDestination;
         };
     });
 });

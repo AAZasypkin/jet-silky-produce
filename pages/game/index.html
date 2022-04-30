@@ -66,7 +66,7 @@
                                     switch (key) {
                                         case 0:
                                             return `
-                                                fetch("https://jet-silky-produce.glitch.me/writeMsgToPlayer/${token}/В_предыдущем_ходе_вы_защитили_игрока_${this.doneName}").catch(console.log);
+                                                fetch("https://jet-silky-produce.glitch.me/writeMsgToPlayer/${token}/В_предыдущем_ходе_вы_защитили_игрока_${this.functionBuffer}").catch(console.log);
                                                 fetch("https://jet-silky-produce.glitch.me/defendPlayer/${this.functionBuffer}").catch(console.log);
                                                 fetch("https://jet-silky-produce.glitch.me/editReady/${token}/false");
                                                 fetch("https://jet-silky-produce.glitch.me/addToDone/${window.location.href.split("/").slice(-1)[0]}/defended/${this.functionBuffer}").catch(console.log);
@@ -75,7 +75,7 @@
                                             break;
                                         case 1:
                                             return `
-                                                fetch("https://jet-silky-produce.glitch.me/writeMsgToPlayer/${token}/В_предыдущем_ходе_вы_атаковали_игрока_${this.doneName}").catch(console.log);
+                                                fetch("https://jet-silky-produce.glitch.me/writeMsgToPlayer/${token}/В_предыдущем_ходе_вы_атаковали_игрока_${this.functionBuffer}").catch(console.log);
                                                 fetch("https://jet-silky-produce.glitch.me/attackPlayer/${this.functionBuffer}").catch(console.log);
                                                 fetch("https://jet-silky-produce.glitch.me/editReady/${token}/false");
                                                 fetch("https://jet-silky-produce.glitch.me/addToDone/${window.location.href.split("/").slice(-1)[0]}/attacked/${this.functionBuffer}").catch(console.log);
