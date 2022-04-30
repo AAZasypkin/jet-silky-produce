@@ -305,7 +305,17 @@ app.get("/checkAllDone", (req, res) => {
     players.find({}, function(err, docs) {
         for (let i in docs) {
             players.find({_id: docs[i].msg.split("_").slice(-1)[0]}, function(err1, docs1) {
-                
+                //targetName = docs1[0].name
+                //targetState = docs1[0].dead
+                this.bufferForUpdate = docs[i].msg.split("_");
+                this.bufferForUpdate[this.bufferForUpdate.length-1] = docs1[0].name
+                if docs1[0].dead {
+                    this.bufferForUpdate.push(", игрок погиб");
+                }
+                else {
+                    this.bufferForUpdate.push(", игрок выжил");
+                };
+                players.update({token: docs[i].token}, {$set: {msg: ""}}, {});
             });
             this.doneDestination;
         };
