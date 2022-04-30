@@ -62,6 +62,7 @@
                                 };*/
                                 this.doAction = async function(key) {
                                     this.functionBuffer = buffer.children[1].children[parseInt(i)+1].innerHTML.split(" ")[3].replace(")", "");
+                                    console.log(this.functionBuffer);
                                     switch (key) {
                                         case 0:
                                             return `
@@ -199,7 +200,6 @@
         }
         window.onload = async function() {
             this.buffer = document.createElement("p");
-            this.buffer.innerHTML = (await (await fetch(`https://jet-silky-produce.glitch.me/readMsgPlayer/${token}`)).text()).split("_").join(" ");
             document.body.append(this.buffer);
             if (eval (await (await fetch(`https://jet-silky-produce.glitch.me/checkDead/${token}`)).text())) {
                 this.buffer = document.createElement("p");
@@ -215,6 +215,7 @@
                         this.buffer.innerHTML = `<br>${this.result}`;
                         document.body.append(this.buffer);
                     } else {
+                        this.buffer.innerHTML = (await (await fetch(`https://jet-silky-produce.glitch.me/readMsgPlayer/${token}`)).text()).split("_").join(" ");
                         renderPlayers();  
                     };
                 } else {
