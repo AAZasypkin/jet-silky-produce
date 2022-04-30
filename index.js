@@ -86,6 +86,23 @@ function killDead() {
             };
         };
     });
+    players.find({}, function(err, docs) {
+        for (let i in docs) {
+            console.log(docs[i].msg.split("_").slice(-1)[0])
+            players.find({_id: docs[i].msg.split("_").slice(-1)[0]}, function(err1, docs1) {
+                this.bufferForUpdate = docs[i].msg.split("_");
+                this.bufferForUpdate[this.bufferForUpdate.length-1] = docs1[0].name
+                if (docs1[0].dead) {
+                    this.bufferForUpdate.push(", игрок погиб");
+                }
+                else {
+                    this.bufferForUpdate.push(", игрок выжил");
+                };
+                this.bufferForUpdate = this.bufferForUpdate.join("_");
+                players.update({token: docs[i].token}, {$set: {msg: this.bufferForUpdate}}, {});
+            });
+        };
+    });
 };
 
 app.get("/nextPhase/:token", (req, res) => {
@@ -301,7 +318,7 @@ app.get("/groupRoles/:token/:args", (req, res) => {
     });
 });
 
-app.get("/checkAllDone", (req, res) => {
+/*app.get("/checkAllDone", (req, res) => {
     players.find({}, function(err, docs) {
         for (let i in docs) {
             players.find({_id: docs[i].msg.split("_").slice(-1)[0]}, function(err1, docs1) {
@@ -315,12 +332,12 @@ app.get("/checkAllDone", (req, res) => {
                 else {
                     this.bufferForUpdate.push(", игрок выжил");
                 };
-                players.update({token: docs[i].token}, {$set: {msg: ""}}, {});
+                this.bufferForUpdate = this.bufferForUpdate.join("_");
+                players.update({token: docs[i].token}, {$set: {msg: this.bufferForUpdate}}, {});
             });
-            this.doneDestination;
         };
     });
-});
+});*/
 
 app.get("/index.css", (req, res) => {
     res.sendFile(`${__dirname}/index.css`);
