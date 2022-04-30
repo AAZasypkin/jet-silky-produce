@@ -301,7 +301,13 @@ app.get("/groupRoles/:token/:args", (req, res) => {
     });
 });
 
-
+app.get("/checkAllDone", (req, res) => {
+    players.find({}, function(err, docs) {
+        for (let i in docs) {
+            this.doneDestination
+        };
+    });
+});
 
 app.get("/index.css", (req, res) => {
     res.sendFile(`${__dirname}/index.css`);
