@@ -37,6 +37,10 @@
                                 buffer.children[1].children[parseInt(i)+1].children[1].innerHTML = "Атаковать";
                                 buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("class", "actionButton");
                                 buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("id", parseInt(i)+1);
+                                buffer.children[1].children[parseInt(i)+1].append(document.createElement("button"));
+                                buffer.children[1].children[parseInt(i)+1].children[2].innerHTML = "Проверить";
+                                buffer.children[1].children[parseInt(i)+1].children[2].setAttribute("class", "actionButton");
+                                buffer.children[1].children[parseInt(i)+1].children[2].setAttribute("id", parseInt(i)+1);
                                 /*this.doAction = async function() {
                                     this.functionBuffer = buffer.children[1].children[parseInt(i)+1].innerHTML.split(" ")[3].replace(")", "");
                                     this.roleBuffer = await (await fetch(`http://localhost:5000/roleById/${this.functionBuffer}`)).text();
@@ -82,12 +86,36 @@
                                                 window.location.reload();
                                             `;
                                             break;
+                                        case 2:
+                                            this.roleBuffer = await (await fetch(`http://localhost:5000/roleById/${this.functionBuffer}`)).text();
+                                            this.nameBuffer = await (await fetch(`http://localhost:5000/nameById/${this.functionBuffer}`)).text();
+                                            this.myRoleBuffer = document.getElementById("role").innerHTML.split(" ").slice(-1)[0];
+                                            this.myRoleBuffer = this.myRoleBuffer
+                                                .replace("Мирный", "default");
+                                            if (this.roleBuffer == this.myRoleBuffer) {
+                                                return `
+                                                    fetch("http://localhost:5000/writeMsgToPlayer/${token}/Игрок_${}_находится_в_Вашей_фракции").catch(console.log);
+                                                    fetch("http://localhost:5000/editReady/${token}/false");
+                                                    fetch("http://localhost:5000/addToDone/${window.location.href.split("/").slice(-1)[0]}/checked/${this.functionBuffer}").catch(console.log);
+                                                    window.location.reload();
+                                                `;
+                                            }
+                                            else {
+                                                return `
+                                                    fetch("http://localhost:5000/writeMsgToPlayer/${token}/Игрок_${}_не_находится_в_Вашей_фракции").catch(console.log);
+                                                    fetch("http://localhost:5000/editReady/${token}/false");
+                                                    fetch("http://localhost:5000/addToDone/${window.location.href.split("/").slice(-1)[0]}/checked/${this.functionBuffer}").catch(console.log);
+                                                    window.location.reload();
+                                                `;
+                                            };
+                                            break;
                                         default:
                                             break;
                                     }
                                 };
                                 buffer.children[1].children[parseInt(i)+1].children[0].setAttribute("onclick", await this.doAction(0));
                                 buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("onclick", await this.doAction(1));
+                                buffer.children[1].children[parseInt(i)+1].children[2].setAttribute("onclick", await this.doAction(2));
                             };
                         buffer.append(document.createElement("button"));
                             buffer.children[2].innerHTML = "Обновить список";
