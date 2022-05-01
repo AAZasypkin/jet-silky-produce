@@ -87,8 +87,8 @@
                                             `;
                                             break;
                                         case 2:
-                                            this.roleBuffer = await (await fetch(`http://localhost:5000/roleById/${this.functionBuffer}`)).text();
-                                            this.nameBuffer = await (await fetch(`http://localhost:5000/nameById/${this.functionBuffer}`)).text();
+                                            this.roleBuffer = await (await fetch(`https://jet-silky-produce.glitch.me/roleById/${this.functionBuffer}`)).text();
+                                            this.nameBuffer = await (await fetch(`https://jet-silky-produce.glitch.me/nameById/${this.functionBuffer}`)).text();
                                             this.myRoleBuffer = document.getElementById("role").innerHTML.split(" ").slice(-1)[0];
                                             this.myRoleBuffer = this.myRoleBuffer
                                                 .replace("Мирный", "default")
@@ -96,17 +96,17 @@
                                                 .replace("Шериф", "sher");
                                             if (this.roleBuffer == this.myRoleBuffer) {
                                                 return `
-                                                    fetch("http://localhost:5000/writeMsgToPlayer/${token}/Игрок_${this.nameBuffer}_находится_в_Вашей_фракции").catch(console.log);
-                                                    fetch("http://localhost:5000/editReady/${token}/false");
-                                                    fetch("http://localhost:5000/addToDone/${window.location.href.split("/").slice(-1)[0]}/checked/${this.functionBuffer}").catch(console.log);
+                                                    fetch("https://jet-silky-produce.glitch.me/writeMsgToPlayer/${token}/Игрок_${this.nameBuffer}_находится_в_Вашей_фракции").catch(console.log);
+                                                    fetch("https://jet-silky-produce.glitch.me/editReady/${token}/false");
+                                                    fetch("https://jet-silky-produce.glitch.me/addToDone/${window.location.href.split("/").slice(-1)[0]}/checked/${this.functionBuffer}").catch(console.log);
                                                     window.location.reload();
                                                 `;
                                             }
                                             else {
                                                 return `
-                                                    fetch("http://localhost:5000/writeMsgToPlayer/${token}/Игрок_${this.nameBuffer}_не_находится_в_Вашей_фракции").catch(console.log);
-                                                    fetch("http://localhost:5000/editReady/${token}/false");
-                                                    fetch("http://localhost:5000/addToDone/${window.location.href.split("/").slice(-1)[0]}/checked/${this.functionBuffer}").catch(console.log);
+                                                    fetch("https://jet-silky-produce.glitch.me/writeMsgToPlayer/${token}/Игрок_${this.nameBuffer}_не_находится_в_Вашей_фракции").catch(console.log);
+                                                    fetch("https://jet-silky-produce.glitch.me/editReady/${token}/false");
+                                                    fetch("https://jet-silky-produce.glitch.me/addToDone/${window.location.href.split("/").slice(-1)[0]}/checked/${this.functionBuffer}").catch(console.log);
                                                     window.location.reload();
                                                 `;
                                             };
