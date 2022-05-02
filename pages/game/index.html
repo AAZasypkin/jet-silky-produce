@@ -143,6 +143,10 @@
                                 buffer.children[1].children[parseInt(i)+1].children[1].innerHTML = "Атаковать";
                                 buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("class", "actionButton");
                                 buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("id", parseInt(i)+1);
+                                buffer.children[1].children[parseInt(i)+1].append(document.createElement("button"));
+                                buffer.children[1].children[parseInt(i)+1].children[2].innerHTML = "Проверить";
+                                buffer.children[1].children[parseInt(i)+1].children[2].setAttribute("class", "actionButton");
+                                buffer.children[1].children[parseInt(i)+1].children[2].setAttribute("id", parseInt(i)+1);
                                 this.doAction = async function(key) {
                                     this.functionBuffer = buffer.children[1].children[parseInt(i)+1].innerHTML.split(" ")[3].replace(")", "");
                                     switch (key) {
@@ -164,12 +168,38 @@
                                                 window.location.reload();
                                             `;
                                             break;
+                                        case 2:
+                                            this.roleBuffer = await (await fetch(`https://jet-silky-produce.glitch.me/roleById/${this.functionBuffer}`)).text();
+                                            this.nameBuffer = await (await fetch(`https://jet-silky-produce.glitch.me/nameById/${this.functionBuffer}`)).text();
+                                            this.myRoleBuffer = document.getElementById("role").innerHTML.split(" ").slice(-1)[0];
+                                            this.myRoleBuffer = this.myRoleBuffer
+                                                .replace("Мирный", "default")
+                                                .replace("Вампир", "vamp")
+                                                .replace("Шериф", "sher");
+                                            if (this.roleBuffer == this.myRoleBuffer) {
+                                                return `
+                                                    fetch("https://jet-silky-produce.glitch.me/writeMsgToPlayer/${token}/Игрок_${this.nameBuffer}_находится_в_Вашей_фракции").catch(console.log);
+                                                    fetch("https://jet-silky-produce.glitch.me/editReady/${token}/false");
+                                                    fetch("https://jet-silky-produce.glitch.me/addToDone/${window.location.href.split("/").slice(-1)[0]}/checked/${this.functionBuffer}").catch(console.log);
+                                                    window.location.reload();
+                                                `;
+                                            }
+                                            else {
+                                                return `
+                                                    fetch("https://jet-silky-produce.glitch.me/writeMsgToPlayer/${token}/Игрок_${this.nameBuffer}_не_находится_в_Вашей_фракции").catch(console.log);
+                                                    fetch("https://jet-silky-produce.glitch.me/editReady/${token}/false");
+                                                    fetch("https://jet-silky-produce.glitch.me/addToDone/${window.location.href.split("/").slice(-1)[0]}/checked/${this.functionBuffer}").catch(console.log);
+                                                    window.location.reload();
+                                                `;
+                                            };
+                                            break;
                                         default:
                                             break;
                                     }
                                 };
                                 buffer.children[1].children[parseInt(i)+1].children[0].setAttribute("onclick", await this.doAction(0));
                                 buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("onclick", await this.doAction(1));
+                                buffer.children[1].children[parseInt(i)+1].children[2].setAttribute("onclick", await this.doAction(2));
                             };
                         buffer.append(document.createElement("button"));
                             buffer.children[2].innerHTML = "Обновить список";
@@ -194,6 +224,10 @@
                                 buffer.children[1].children[parseInt(i)+1].children[1].innerHTML = "Атаковать";
                                 buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("class", "actionButton");
                                 buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("id", parseInt(i)+1);
+                                buffer.children[1].children[parseInt(i)+1].append(document.createElement("button"));
+                                buffer.children[1].children[parseInt(i)+1].children[2].innerHTML = "Проверить";
+                                buffer.children[1].children[parseInt(i)+1].children[2].setAttribute("class", "actionButton");
+                                buffer.children[1].children[parseInt(i)+1].children[2].setAttribute("id", parseInt(i)+1);
                                 this.doAction = async function(key) {
                                     this.functionBuffer = buffer.children[1].children[parseInt(i)+1].innerHTML.split(" ")[3].replace(")", "");
                                     switch (key) {
@@ -215,12 +249,38 @@
                                                 window.location.reload();
                                             `;
                                             break;
+                                        case 2:
+                                            this.roleBuffer = await (await fetch(`https://jet-silky-produce.glitch.me/roleById/${this.functionBuffer}`)).text();
+                                            this.nameBuffer = await (await fetch(`https://jet-silky-produce.glitch.me/nameById/${this.functionBuffer}`)).text();
+                                            this.myRoleBuffer = document.getElementById("role").innerHTML.split(" ").slice(-1)[0];
+                                            this.myRoleBuffer = this.myRoleBuffer
+                                                .replace("Мирный", "default")
+                                                .replace("Вампир", "vamp")
+                                                .replace("Шериф", "sher");
+                                            if (this.roleBuffer == this.myRoleBuffer) {
+                                                return `
+                                                    fetch("https://jet-silky-produce.glitch.me/writeMsgToPlayer/${token}/Игрок_${this.nameBuffer}_находится_в_Вашей_фракции").catch(console.log);
+                                                    fetch("https://jet-silky-produce.glitch.me/editReady/${token}/false");
+                                                    fetch("https://jet-silky-produce.glitch.me/addToDone/${window.location.href.split("/").slice(-1)[0]}/checked/${this.functionBuffer}").catch(console.log);
+                                                    window.location.reload();
+                                                `;
+                                            }
+                                            else {
+                                                return `
+                                                    fetch("https://jet-silky-produce.glitch.me/writeMsgToPlayer/${token}/Игрок_${this.nameBuffer}_не_находится_в_Вашей_фракции").catch(console.log);
+                                                    fetch("https://jet-silky-produce.glitch.me/editReady/${token}/false");
+                                                    fetch("https://jet-silky-produce.glitch.me/addToDone/${window.location.href.split("/").slice(-1)[0]}/checked/${this.functionBuffer}").catch(console.log);
+                                                    window.location.reload();
+                                                `;
+                                            };
+                                            break;
                                         default:
                                             break;
                                     }
                                 };
                                 buffer.children[1].children[parseInt(i)+1].children[0].setAttribute("onclick", await this.doAction(0));
                                 buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("onclick", await this.doAction(1));
+                                buffer.children[1].children[parseInt(i)+1].children[2].setAttribute("onclick", await this.doAction(2));
                             };
                         buffer.append(document.createElement("button"));
                             buffer.children[2].innerHTML = "Обновить список";
