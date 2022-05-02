@@ -8,6 +8,10 @@
     <script>
         var socket = io();
         var buffer = "";
+        setInterval(function() {
+            
+        }, 1000)
+        //document.getElementById("time").innerHTML += 
         const token = window.location.href.split("/")[4];
         socket.on("phaseChanged", data => {
             window.location.reload();
@@ -328,5 +332,6 @@
     <p id="phase"></p>
     <p id="name"></p>
     <p id="role"></p>
+    <p id="time">До следующего раунда осталось </p>
 </body>
 </html>
