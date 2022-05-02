@@ -307,9 +307,9 @@
                 document.body.append(this.buffer);
                 return;
             };
-            if (document.getElementById("phase").innerHTML.split("Текущая фаза: ").join("") == await (await fetch(`https://jet-silky-produce.glitch.me/lastLoginPhase/${token}`)).text()) {
+            if (document.getElementById("phase").innerHTML.split("Текущий раунд: ").join("") == await (await fetch(`https://jet-silky-produce.glitch.me/lastLoginPhase/${token}`)).text()) {
                 if (eval (await (await fetch(`https://jet-silky-produce.glitch.me/checkReady/${token}`)).text())) {
-                    if (document.getElementById("phase").innerHTML.split("Текущая фаза: ").join("") == "Финал") {
+                    if (document.getElementById("phase").innerHTML.split("Текущий раунд: ").join("") == "Финал") {
                         this.result = await(await fetch("https://jet-silky-produce.glitch.me/getResult/")).text()
                         this.buffer = document.createElement("p");
                         this.buffer.innerHTML = `<br>${this.result}`;
@@ -326,7 +326,7 @@
             }
             else {
                 //await fetch(`http://localhost:5000/writeMsgToPlayer/${token}/""`);
-                await fetch(`https://jet-silky-produce.glitch.me/writeLastLoginPhase/${token}/${document.getElementById("phase").innerHTML.split("Текущая фаза: ").join("")}`);
+                await fetch(`https://jet-silky-produce.glitch.me/writeLastLoginPhase/${token}/${document.getElementById("phase").innerHTML.split("Текущий раунд: ").join("")}`);
                 await fetch(`https://jet-silky-produce.glitch.me/editReady/${token}/true`);
                 await fetch(`https://jet-silky-produce.glitch.me/clearAttacks/${token}`);
                 window.location.reload();
