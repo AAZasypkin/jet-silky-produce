@@ -11,7 +11,10 @@
         setInterval(function() {
             this.buffer = new Date();
             this.totalBuffer = 3600-(this.buffer.getMinutes()*60+this.buffer.getSeconds());
-            this.minutes 
+            this.minutes = Math.floor(this.totalBuffer/60);
+            this.seconds = Math.floor(this.totalBuffer%60);
+            this.result = `${this.minutes}:${this.seconds}`;
+            console.log(this.result)
         }, 1000)
         //document.getElementById("time").innerHTML += 
         const token = window.location.href.split("/")[4];
