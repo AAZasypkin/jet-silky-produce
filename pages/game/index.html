@@ -9,14 +9,15 @@
         var socket = io();
         var buffer = "";
         setInterval(function() {
-            this.buffer = new Date();
-            this.totalBuffer = 3600-(this.buffer.getMinutes()*60+this.buffer.getSeconds());
-            this.minutes = Math.floor(this.totalBuffer/60);
-            this.seconds = Math.floor(this.totalBuffer%60);
+            this.bufferDate = new Date();
+            this.totalBuffer = 3600-(this.bufferDate.getMinutes()*60+this.bufferDate.getSeconds());
+            this.minutes = Math.floor(this.totalBuffer/60).toString();
+            this.seconds = Math.floor(this.totalBuffer%60).toString();
+            if (this.minutes.length == 1) {this.minutes = "0"+this.minutes};
+            if (this.seconds.length == 1) {this.seconds = "0"+this.seconds};
             this.result = `${this.minutes}:${this.seconds}`;
-            console.log(this.result)
+            document.getElementById("time").innerHTML = `До следующего раунда осталось ${this.result}`;
         }, 1000)
-        //document.getElementById("time").innerHTML += 
         const token = window.location.href.split("/")[4];
         socket.on("phaseChanged", data => {
             window.location.reload();
@@ -291,7 +292,7 @@
                                 buffer.children[1].children[parseInt(i)+1].children[1].setAttribute("onclick", await this.doAction(1));
                                 buffer.children[1].children[parseInt(i)+1].children[2].setAttribute("onclick", await this.doAction(2));
                             };
-                        buffer.append(document.createElement("button"));
+                            buffer.append(document.createElement("button"));
                             buffer.children[2].innerHTML = "Обновить список";
                             buffer.children[2].setAttribute("onclick", "renderPlayers()");
                     break;
