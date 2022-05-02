@@ -9,7 +9,9 @@
         var socket = io();
         var buffer = "";
         setInterval(function() {
-            
+            this.buffer = new Date();
+            this.totalBuffer = 3600-(this.buffer.getMinutes()*60+this.buffer.getSeconds());
+            this.minutes 
         }, 1000)
         //document.getElementById("time").innerHTML += 
         const token = window.location.href.split("/")[4];
