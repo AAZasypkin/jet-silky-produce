@@ -8,7 +8,7 @@
     <script>
         var socket = io();
         var buffer = "";
-        setInterval(function() {
+        var timeFunction = setInterval(function() {
             this.bufferDate = new Date();
             this.totalBuffer = 3600-(this.bufferDate.getMinutes()*60+this.bufferDate.getSeconds());
             this.minutes = Math.floor(this.totalBuffer/60).toString();
@@ -305,6 +305,14 @@
                 this.buffer = document.createElement("p");
                 this.buffer.innerHTML = "<br>Вы были убиты. Игра для Вас завершена.";
                 document.body.append(this.buffer);
+                if (document.getElementById("phase").innerHTML.split("Текущий раунд: ").join("") == "Финал") {
+                    this.result = await(await fetch("https://jet-silky-produce.glitch.me/getResult/")).text()
+                    this.buffer = document.createElement("p");
+                    this.buffer.innerHTML = `<br>${this.result}`;
+                    document.body.append(this.buffer);
+                    clearInterval(timeFunction);
+                    document.getElementById("time").remove();
+                };
                 return;
             };
             if (document.getElementById("phase").innerHTML.split("Текущий раунд: ").join("") == await (await fetch(`https://jet-silky-produce.glitch.me/lastLoginPhase/${token}`)).text()) {
@@ -314,6 +322,8 @@
                         this.buffer = document.createElement("p");
                         this.buffer.innerHTML = `<br>${this.result}`;
                         document.body.append(this.buffer);
+                        clearInterval(timeFunction);
+                        document.getElementById("time").remove();
                     } else {
                         this.buffer.innerHTML = (await (await fetch(`https://jet-silky-produce.glitch.me/readMsgPlayer/${token}`)).text()).split("_").join(" ");
                         renderPlayers();  
