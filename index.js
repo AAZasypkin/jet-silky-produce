@@ -114,12 +114,22 @@ app.get("/nextPhase/:token", (req, res) => {
             for (let pl of docs1) {
                 if (!pl.dead) {
                     this.rolesLeft.push(pl.role);
-                    
+                    this.playersLeft.push(pl._id);
                 };
             };
             this.rolesLeft = new Set(this.rolesLeft);
             this.playersLeft = new Set(this.playersLeft);
             if (this.rolesLeft.size == 0) {
+                managers.find({token: req.params.token}, function (err, docs) {
+                    if (docs.length == 0) {
+                        return res.send("Отказано в доступе.");
+                    };
+                    game.update({}, {$set: {phase: "fin"}}, {});
+                    game.update({}, {$set: {result: "Ничья!"}}, {});
+                    io.sockets.emit("phaseChanged", {"description": ""});
+                    res.send("ok");
+                });
+            } else if ((this.rolesLeft.size == 2) && (this.playersLeft.size == 2)) {
                 managers.find({token: req.params.token}, function (err, docs) {
                     if (docs.length == 0) {
                         return res.send("Отказано в доступе.");
