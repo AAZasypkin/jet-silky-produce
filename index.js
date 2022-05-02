@@ -67,7 +67,7 @@ app.get("/game/:token", (req, res) => {
                                     .join("Шериф")
                             }</p>`)
                     .split('<p id="phase"></p>')
-                        .join(`<p id="phase">Текущая фаза: ${docs1[0].phase.toString().split("fin").join("Финал")}</p>`)
+                        .join(`<p id="phase">Текущий раунд: ${docs1[0].phase.toString().split("fin").join("Финал")}</p>`)
                 );
             });
         };
@@ -110,12 +110,15 @@ app.get("/nextPhase/:token", (req, res) => {
     setTimeout(function() {
         players.find({}, function (err, docs1) {
             this.rolesLeft = [];
+            this.playersLeft = [];
             for (let pl of docs1) {
                 if (!pl.dead) {
                     this.rolesLeft.push(pl.role);
+                    
                 };
             };
             this.rolesLeft = new Set(this.rolesLeft);
+            this.playersLeft = new Set(this.playersLeft);
             if (this.rolesLeft.size == 0) {
                 managers.find({token: req.params.token}, function (err, docs) {
                     if (docs.length == 0) {
